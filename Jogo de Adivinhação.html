@@ -1,0 +1,81 @@
+<!--Gerador de numeros aleatório-->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Adivinhação</title>
+</head>
+
+<body>
+    <input type="text">
+    <button>Adivinhe o numero</button>
+
+    <script>
+
+        function sorteio() { //Função para me gerar numeros aleatórios
+            return Math.round(Math.random() * 10);
+        }
+
+
+        function sorteiaNumeros(quantidade) { //Função sorteia os numeros aleatórios 
+
+            var segredos = [];
+
+            var numero = 1;
+
+            while (numero <= quantidade) {
+
+                var numeroAleatorio = sorteio();
+                var achou = false;
+
+                if (numeroAleatorio !== 0) {
+                    for (var posicao = 0; posicao < segredos.length; posicao++) {
+
+                        if (segredos[posicao] == numeroAleatorio) {
+                            achou = true;
+                            break;
+                        }
+                    }
+
+                    if (achou == false) {
+                        segredos.push(numeroAleatorio); /*"Push empurrar elementos"*/
+                        numero++
+                    }
+                }
+            }
+
+            return segredos;
+        }
+
+        var segredos = sorteiaNumeros(5);
+        console.log(segredos);
+
+        var input = document.querySelector("input");
+        input.focus();
+
+        function verifica() {
+            var achou = false;
+            for (var posicao = 0; posicao < segredos.length; posicao++) { /*"Length" serve para puxar numeros ou caracteres aleatórios*/
+
+                if (input.value == segredos[posicao]) {
+                    alert("Você ACERTOU");
+                    achou = true
+                    break;
+                }
+            }
+
+            if (achou == false) {
+                alert("Você ERROU!!!")
+            }
+
+        }
+        var button = document.querySelector("button");
+        button.onclick = verifica;
+    </script>
+</body>
+
+</html>
